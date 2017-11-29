@@ -51,7 +51,8 @@ def parse_message(data):
     """Return a tuple containing the command, the key, and (optionally) the
     value cast to the appropriate type."""
     try:
-        command, key, value, value_type = map(str.strip, data.strip().split(';'))
+        #command, key, value, value_type = map(str.strip, data.strip().split(';'))
+        command, key, value, value_type = data.strip().split(';')
     except:
         return 'Invalid input! Expected: COMMAND; [KEY]; [VALUE]; [VALUE TYPE]'
     if value_type:
