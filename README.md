@@ -7,8 +7,8 @@
 
 # Telnet Command
 - telnet localhost 50505
-- STATUS;;;
+- STATS;;;
 - PUT;foo;1;
 - GET;foo;;
 - INCR;foo;;
-- STATUS;;;
+- STATS;;;
