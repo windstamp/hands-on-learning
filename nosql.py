@@ -159,6 +159,7 @@ COMMAND_HANDERS = {
     'GETLIST': handle_getlist,
     'PUTLIST': handle_putlist,
     'INCREMENT': handle_increment,
+    'INCR': handle_increment,
     'APPEND': handle_append,
     'DELETE': handle_delete,
     'STATS': handle_stats,
@@ -179,16 +180,18 @@ def main():
         command, key, value = parse_message(data)
         if command == 'STATS':
             response = handle_stats()
-        elif command in ('GET', 'GETLIST', 'INCREMENT', 'DELETE'):
+            update_stats(command, response[0])
+        elif command in ('GET', 'GETLIST', 'INCREMENT', 'INCR', 'DELETE'):
             response = COMMAND_HANDERS[command](key)
         elif command in (
                 'PUT',
                 'PUTLIST',
                 'APPEND', ):
             response = COMMAND_HANDERS[command](key, value)
+            update_stats(command, response[0])
         else:
             response = (False, 'Unknown command type {}'.format(command))
-        update_stats(command, response[0])
+        #update_stats(command, response[0])
         data = '{};\n{}\n'.format(response[0], response[1])
         connection.sendall(bytearray(data, 'utf-8'))
         connection.close()

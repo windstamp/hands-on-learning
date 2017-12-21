@@ -18,7 +18,7 @@ class Block:
         sha.update(
             bytes(
                 str(self.index) + str(self.timestamp) + str(self.data) + str(
-                    self.previous_hash), 'utf-8'))
+                    self.previous_hash)))
         return sha.hexdigest()
 
 
